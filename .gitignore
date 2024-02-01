@@ -6,3 +6,5 @@ NTDLS.Katzebase.SQLServerMigration/obj/
 *.user
 
 .vs/
+
+\@Installers/Output/

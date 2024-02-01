@@ -28,7 +28,7 @@
  Source: "..\NTDLS.Katzebase.SQLServerMigration\bin\Release\net8.0-windows\Runtimes\*.*"; DestDir: "{app}\Runtimes"; Flags: IgnoreVersion recursesubdirs; 
 
 [Icons]
- Name: "{group}\Katzebase MSSQL Migration Tool";  Filename: "{app}\MSSQLMigrate\NTDLS.Katzebase.SQLServerMigration.exe"; 
+ Name: "{group}\Katzebase MSSQL Migration Tool";  Filename: "{app}\NTDLS.Katzebase.SQLServerMigration.exe"; 
 
 [Run]
  Filename: "{app}\NTDLS.Katzebase.SQLServerMigration.exe"; Description: "Run Katzebase SQL Server Migration now?"; Flags: postinstall nowait skipifsilent shellexec;
