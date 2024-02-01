@@ -1,0 +1,8 @@
+
+NTDLS.Katzebase.SQLServerMigration/bin/
+
+NTDLS.Katzebase.SQLServerMigration/obj/
+
+*.user
+
+.vs/
