@@ -94,7 +94,7 @@
             textBoxServerHost.Name = "textBoxServerHost";
             textBoxServerHost.Size = new Size(196, 23);
             textBoxServerHost.TabIndex = 0;
-            textBoxServerHost.Text = "http://localhost:6858/";
+            textBoxServerHost.Text = "127.0.0.1";
             // 
             // textBoxServerSchema
             // 

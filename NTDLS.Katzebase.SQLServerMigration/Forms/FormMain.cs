@@ -53,7 +53,7 @@ namespace NTDLS.Katzebase.SQLServerMigration
                 return;
             }
 
-            if (int.TryParse(textBoxServerPort.Text, out var serverPort))
+            if (!int.TryParse(textBoxServerPort.Text, out var serverPort))
             {
                 return;
             }
@@ -62,6 +62,8 @@ namespace NTDLS.Katzebase.SQLServerMigration
             {
                 return;
             }
+
+            using var client = new KbClient(textBoxServerHost.Text, serverPort);
 
             var param = new OuterWorkloadThreadParam(textBoxServerHost.Text, serverPort, textBoxServerSchema.Text);
 
@@ -83,7 +85,7 @@ namespace NTDLS.Katzebase.SQLServerMigration
             }
             else
             {
-                var message = "An error occured while exporting data.";
+                var message = "An error occurred while exporting data.";
 
                 if (FormProgress.Singleton.Form.UserData != null)
                 {
@@ -241,13 +243,14 @@ namespace NTDLS.Katzebase.SQLServerMigration
                 {
                     client.Schema.CreateRecursive(fullTargetSchema);
                 }
+                catch (Client.Exceptions.KbDeadlockException)
+                {
+                    Console.WriteLine("Deadlocked... retrying.");
+                    Thread.Sleep(500);
+                    continue;
+                }
                 catch (Exception ex)
                 {
-                    if (ex.Message.Contains("Deadlock exception"))
-                    {
-                        Thread.Sleep(500);
-                        continue;
-                    }
                     Console.WriteLine(ex.Message);
                 }
                 break;
