@@ -241,16 +241,19 @@ namespace NTDLS.Katzebase.SQLServerMigration
 
                 try
                 {
+                    client.Transaction.Begin();
                     client.Schema.CreateRecursive(fullTargetSchema);
-                }
-                catch (Client.Exceptions.KbDeadlockException)
-                {
-                    Console.WriteLine("Deadlocked... retrying.");
-                    Thread.Sleep(500);
-                    continue;
+                    client.Transaction.Commit();
                 }
                 catch (Exception ex)
                 {
+                    if (ex.Message.Contains("deadlock", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        Console.WriteLine("Deadlocked... retrying.");
+                        Thread.Sleep(1000);
+                        continue;
+                    }
+
                     Console.WriteLine(ex.Message);
                 }
                 break;
